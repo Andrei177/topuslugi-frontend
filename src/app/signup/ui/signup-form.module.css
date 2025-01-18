@@ -6,6 +6,18 @@
 .form label{
     margin-top: 15px;
 }
+.rules{
+    color: #1749B3;
+}
+.approval{
+    display: flex;
+    align-items: start;
+    gap: 5px;
+    padding-top: 7px;
+}
+.approval_text{
+    width: 300px;
+}
 .btn{
-    margin-top: 30px;
+    margin-top: 15px;
 }

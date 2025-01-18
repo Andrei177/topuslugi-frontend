@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Input from "@/shared/ui/input/input";
 import Button from "@/shared/ui/button/button";
 import s from "./login-form.module.css"
+import Link from "next/link";
 
 const LoginForm = () => {
 
@@ -50,7 +51,7 @@ const LoginForm = () => {
                 onChange={e => setPassword(e.target.value)}
             />
             <Button className={s.btn}>Войти</Button>
-            <p className={s.forgot_pass}>Забыли пароль?</p>
+            <Link href={"/recovery"} className={s.forgot_pass}>Забыли пароль?</Link>
         </form>
     )
 }

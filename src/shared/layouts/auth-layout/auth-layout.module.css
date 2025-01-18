@@ -11,6 +11,9 @@
     flex-direction: column;
     gap: 15px;
 }
+.auth a{
+    padding-left: 3px;
+}
 @media (max-width: 1000px) {
     .auth{
         width: 45%;

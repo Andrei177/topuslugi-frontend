@@ -7,12 +7,13 @@ import { useRouter } from "next/navigation";
 import Input from "@/shared/ui/input/input";
 import Button from "@/shared/ui/button/button";
 import s from "./signup-form.module.css"
+import Link from "next/link";
 
 const SignupForm = () => {
 
     const router = useRouter();
 
-    const { email, password, firstName ,setEmail, setPassword, setFirstName, setIsLoginVerification } = useAuthStore();
+    const { email, password, firstName, setEmail, setPassword, setFirstName, setIsLoginVerification } = useAuthStore();
 
     const handleVerifyEmail = (e: FormEvent) => {
         e.preventDefault();
@@ -65,6 +66,14 @@ const SignupForm = () => {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
             />
+            <p className={s.approval}>
+                <input type="checkbox" id="checkbox" />
+                <div className={s.approval_text}>
+                    Создавая учетную запись,
+                    вы соглашаетесь с нашей <Link href={"/policy"} className={s.rules}>Политикой конфиденциальности</Link>
+                    и <Link href={"/rules"} className={s.rules}>Правилами пользования.</Link>
+                </div>
+            </p>
             <Button className={s.btn}>Зарегистрироваться</Button>
         </form>
     )
