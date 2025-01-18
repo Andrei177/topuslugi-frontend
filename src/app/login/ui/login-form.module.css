@@ -1,16 +1,33 @@
-.form{
-    display: inline-flex;
-    flex-direction: column;
-    gap: 10px;
+.form {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
 }
-.form label{
-    margin-top: 15px;
+.form label {
+  margin-top: 15px;
 }
-.btn{
-    margin-top: 30px;
+.btn {
+  margin-top: 15px;
 }
-.forgot_pass{
-    color: black;
-    cursor: pointer;
-    text-align: center;
+.forgot_pass {
+  color: black;
+  cursor: pointer;
+  text-align: center;
+}
+.msg {
+  font-size: 14px;
+  height: 14px;
+  color: rgb(255, 0, 0);
+}
+.visible {
+  visibility: visible;
+}
+.hidden {
+  visibility: hidden;
+}
+.loader {
+  position: absolute;
+  right: 5px;
+  top: -85px;
 }

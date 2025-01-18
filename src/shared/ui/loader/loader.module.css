@@ -1,0 +1,15 @@
+.loader{
+    border-radius: 50%;
+    border: 2px dashed #1749B3;
+    animation: loading infinite 4s;
+    height: 50px;
+    width: 50px;
+}
+@keyframes loading {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

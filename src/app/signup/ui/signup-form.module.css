@@ -2,6 +2,7 @@
     display: inline-flex;
     flex-direction: column;
     gap: 3px;
+    position: relative;
 }
 .form label{
     margin-top: 15px;
@@ -11,13 +12,30 @@
 }
 .approval{
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     gap: 5px;
     padding-top: 7px;
 }
 .approval_text{
     width: 300px;
 }
+.msg{
+    font-size: 14px;
+    height: 14px;
+    color: rgb(255, 0, 0);
+}
+.visible{
+    visibility: visible;
+}
+.hidden{
+    visibility: hidden;
+}
 .btn{
-    margin-top: 15px;
+    margin-top: 10px;
+}
+
+.loader{
+    position: absolute;
+    right: 5px;
+    top: -85px;
 }

@@ -8,7 +8,7 @@ interface IPropsButton extends ButtonHTMLAttributes<HTMLButtonElement>{
 
 const Button = ({className, ...otherProps}: IPropsButton) => {
   return (
-    <button className={cx(s.btn, className)} {...otherProps}/>
+    <button className={otherProps.disabled ? cx(s.disabled_btn, className) : cx(s.btn, className)} {...otherProps}/>
   )
 }
 
