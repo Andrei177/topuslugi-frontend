@@ -1,0 +1,28 @@
+.wrapper{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+@media (max-width: 1000px) {
+    .form{
+        width: 45%;
+    }
+}
+@media (max-width: 750px) {
+    .form{
+        width: 60%;
+    }
+}
+@media (max-width: 450px) {
+    .form{
+        width: 75%;
+    }
+}

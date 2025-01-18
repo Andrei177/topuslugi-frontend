@@ -1,0 +1,15 @@
+.form{
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.form label{
+    margin-top: 15px;
+}
+.btn{
+    margin-top: 30px;
+}
+.forgot_pass{
+    cursor: pointer;
+    text-align: center;
+}
