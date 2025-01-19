@@ -12,6 +12,7 @@ import Loader from "@/shared/ui/loader/loader"
 import { AxiosError } from "axios"
 import cx from "classnames"
 import { validateLoginForm } from "@/shared/utils/validateForm"
+import Password from "@/shared/ui/password/password"
 
 const LoginForm = () => {
 
@@ -42,18 +43,18 @@ const LoginForm = () => {
     const handleVerifyEmail = (e: FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        verifyEmail({ email, password })
+        verifyEmail({ email, password, isNewAcc: false})
             .then(res => {
                 console.log(res, "ответ при отправке кода на почту")
                 setIsLoginVerification(true)
                 router.push("/verify")
             })
             .catch(err => {
-                if (err instanceof AxiosError) {
+                if (err instanceof AxiosError && err.response?.data.detail) {
                     setMessage(err.response?.data.detail)
                 }
                 else {
-                    setMessage("Произошла непредвиденная ошибка, попробуйте обновить странцу")
+                    setMessage("Произошла непредвиденная ошибка, попробуйте обновить страницу")
                 }
                 console.log(err, "ошибка при отправке кода на почту")
             })
@@ -65,7 +66,6 @@ const LoginForm = () => {
             {isLoading && <Loader className={s.loader} />}
             <label htmlFor="email">Email</label>
             <Input
-                className="email"
                 type="email"
                 placeholder="Введите свой e-mail"
                 name="email"
@@ -74,9 +74,7 @@ const LoginForm = () => {
                 onChange={e => setEmail(e.target.value)}
             />
             <label htmlFor="password">Пароль</label>
-            <Input
-                className="password"
-                type="password"
+            <Password
                 placeholder="Введите пароль"
                 name="password"
                 id="password"

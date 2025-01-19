@@ -12,6 +12,7 @@ import { validateForm } from "../../../shared/utils/validateForm";
 import cx from "classnames"
 import { AxiosError } from "axios";
 import Loader from "@/shared/ui/loader/loader";
+import Password from "@/shared/ui/password/password";
 
 const SignupForm = () => {
 
@@ -46,14 +47,14 @@ const SignupForm = () => {
     const handleVerifyEmail = (e: FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        verifyEmail({ email, password })
+        verifyEmail({ email, password, isNewAcc: true})
             .then(res => {
                 console.log(res, "ответ при отправке кода на почту")
                 setIsLoginVerification(false)
                 router.push("/verify")
             })
             .catch(err => {
-                if(err instanceof AxiosError){
+                if(err instanceof AxiosError && err.response?.data.detail){
                     setMessage(String(err.response?.data.detail))
                 }
                 else{
@@ -86,15 +87,14 @@ const SignupForm = () => {
                 onChange={e => setEmail(e.target.value)}
             />
             <label htmlFor="password">Пароль</label>
-            <Input
-                type="password"
+            <Password
                 placeholder="Введите пароль"
                 name="password"
                 id="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
             />
-            <label htmlFor="retry-password">Повторите пароль</label>
+            {/* <label htmlFor="retry-password">Повторите пароль</label>
             <Input
                 type="password"
                 placeholder="Повторите пароль"
@@ -102,7 +102,7 @@ const SignupForm = () => {
                 id="retry-password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-            />
+            /> */}
             <div className={s.approval}>
                 <input
                     type="checkbox"

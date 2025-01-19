@@ -1,6 +1,7 @@
 export type AuthVerify = {
   email: string;
   password: string;
+  isNewAcc: boolean;
 };
 export type AuthLogin = {
   email: string;

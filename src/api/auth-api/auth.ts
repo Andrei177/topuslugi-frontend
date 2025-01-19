@@ -5,8 +5,8 @@ type AuthResponse = {
     detail: string
 }
 
-export const verifyEmail = async ({email, password} : AuthVerify) => {
-    const response = await $publicApi.post<AuthResponse>("/email/verification-code", {
+export const verifyEmail = async ({email, password, isNewAcc} : AuthVerify) => {
+    const response = await $publicApi.post<AuthResponse>(`/email/verification-code?is_new_account=${isNewAcc}`, {
         email,
         password
     })

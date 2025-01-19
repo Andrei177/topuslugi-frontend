@@ -26,8 +26,11 @@ const RecoveryPasswordPage = () => {
             setMessage("Перейдите по ссылке в письме для обновления пароля")
         })
         .catch(err => {
-            if(err instanceof AxiosError){
+            if(err instanceof AxiosError && err.response?.data.detail){
                 setMessage(String(err.response?.data.detail))
+            }
+            else{
+                setMessage("Произошла непредвиденная ошибка, попробуйте ещё раз")
             }
             console.log(err, "ошибка при попытке отправки ссылки для восстановления пароля")
             setSuccess(false)

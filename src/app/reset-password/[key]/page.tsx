@@ -10,6 +10,7 @@ import cx from "classnames"
 import { updatePassword } from "@/api/auth-api/auth"
 import { useParams } from "next/navigation"
 import { AxiosError } from "axios"
+import Password from "@/shared/ui/password/password"
 
 const SetNewPasswordPage = () => {
 
@@ -31,8 +32,8 @@ const SetNewPasswordPage = () => {
             setMessage(String(res.data.message))
         })
         .catch(err => {
-            if(err instanceof AxiosError){
-                console.log(err.response?.data.detail)
+            if(err instanceof AxiosError && err.response?.data.detail){
+                setMessage(err.response?.data.detail)
             }
             console.log(err, "ошибка при обновлении пароля")
             setMessage("Произошла ошибка, попробуйте обновить страницу")
@@ -54,8 +55,7 @@ const SetNewPasswordPage = () => {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
-                <Input
-                    type="password"
+                <Password
                     placeholder="Введите пароль"
                     name="password"
                     id="password"
@@ -63,8 +63,7 @@ const SetNewPasswordPage = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
                 <label htmlFor="retry-password">Повторите пароль</label>
-                <Input
-                    type="password"
+                <Password
                     placeholder="Повторите пароль"
                     name="retry-password"
                     id="retry-password"

@@ -12,3 +12,15 @@ export const $privateApi = axios.create({
     //     Authorization: `Bearer ${localStorage.getItem("token")}`
     // }
 })
+
+$privateApi.interceptors.request.use((config) => {
+    if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `${token}`;
+        }
+    }
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});

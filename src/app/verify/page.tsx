@@ -32,9 +32,12 @@ const Verify = () => {
       .then(res => {
         console.log(res, "ответ при входе")
         router.push("/")
+        if(res.headers.authorization){
+          localStorage.setItem("token", res.headers.authorization)
+        }
       })
       .catch(err => {
-        if (err instanceof AxiosError) {
+        if (err instanceof AxiosError && err.response?.data.detail) {
           setMessage(String(err.response?.data.detail))
         }
         else {
@@ -42,7 +45,7 @@ const Verify = () => {
         }
         console.log(err, "ошибка при входе")
       })
-      .finally(() => setIsLoading(true))
+      .finally(() => setIsLoading(false))
   }
   const handleSignup = (e: FormEvent) => {
     e.preventDefault();
@@ -51,13 +54,16 @@ const Verify = () => {
       .then(res => {
         console.log(res, "ответ при регистрации")
         router.push("/")
+        if(res.headers.authorization){
+          localStorage.setItem("token", res.headers.authorization)
+        }
       })
       .catch(err => {
-        if (err instanceof AxiosError) {
+        if (err instanceof AxiosError && err.response?.data.detail) {
           setMessage(String(err.response?.data.detail))
         }
         else {
-          setMessage("Произошла непредвиденная ошибка, попробуйте вернуться на страницу входа")
+          setMessage("Произошла непредвиденная ошибка, попробуйте вернуться на страницу регистрации")
         }
         console.log(err, "ошибка при регистрации")
       })
