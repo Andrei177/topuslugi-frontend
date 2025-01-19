@@ -11,20 +11,22 @@ import Link from "next/link"
 import Loader from "@/shared/ui/loader/loader"
 import { AxiosError } from "axios"
 import cx from "classnames"
-import { validatePassword } from "@/shared/utils/validatePassword"
+import { validateLoginForm } from "@/shared/utils/validateForm"
 
 const LoginForm = () => {
 
     const router = useRouter();
 
     const { email, password, setEmail, setPassword, setIsLoginVerification } = useAuthStore();
+    const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
     const [message, setMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (password.length > 0) {
-            const result = validatePassword(password)
+        if (password.length > 0 || email.length > 0) {
+            const result = validateLoginForm(password, email)
+            setIsValidForm(result.isValid)
             if (!result.isValid && result.message) {
                 setMessage(result.message)
             }
@@ -35,7 +37,7 @@ const LoginForm = () => {
         else {
             setMessage("")
         }
-    }, [password])
+    }, [password, email])
 
     const handleVerifyEmail = (e: FormEvent) => {
         e.preventDefault();
@@ -83,12 +85,12 @@ const LoginForm = () => {
             />
             <p className={message.length > 0 ? cx(s.msg, s.visible) : cx(s.msg, s.hidden)}>{message}</p>
             <Button
-                disabled={!/[A-Z]/.test(password) || !/\d/.test(password) || password.length < 8 || email.length === 0}
+                disabled={!isValidForm}
                 className={s.btn}
             >
                 Войти
             </Button>
-            <Link href={"/recovery"} className={s.forgot_pass}>Забыли пароль?</Link>
+            <Link href={"/reset-password"} className={s.forgot_pass}>Забыли пароль?</Link>
         </form>
     )
 }

@@ -1,0 +1,48 @@
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  position: relative;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.msg {
+  font-size: 14px;
+  height: 14px;
+  color: rgb(255, 0, 0);
+}
+.visible {
+  visibility: visible;
+}
+.hidden {
+  visibility: hidden;
+}
+.green{
+    color: green;
+}
+.loader {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+@media (max-width: 1000px) {
+  .form {
+    width: 45%;
+  }
+}
+@media (max-width: 750px) {
+  .form {
+    width: 60%;
+  }
+}
+@media (max-width: 450px) {
+  .form {
+    width: 75%;
+  }
+}

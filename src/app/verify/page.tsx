@@ -5,47 +5,69 @@ import { useAuthStore } from '@/shared/stores/auth-store'
 import Button from '@/shared/ui/button/button';
 import Input from '@/shared/ui/input/input';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import s from "./ui/page.module.css"
+import Loader from '@/shared/ui/loader/loader';
+import cx from "classnames"
+import { AxiosError } from 'axios';
 
 const Verify = () => {
   const router = useRouter();
 
   const { isLoginVerification, email, password, firstName } = useAuthStore();
   const [emailCode, setEmailCode] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
-    if(isLoginVerification === undefined){
+    if (isLoginVerification === undefined) {
       router.push("/login")
     }
   }, [])
 
-  const handleLogin = () => {
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
     login({ email, password, emailCode })
       .then(res => {
         console.log(res, "ответ при входе")
         router.push("/")
       })
       .catch(err => {
-        router.push("/login")
+        if (err instanceof AxiosError) {
+          setMessage(String(err.response?.data.detail))
+        }
+        else {
+          setMessage("Произошла непредвиденная ошибка, попробуйте вернуться на страницу входа")
+        }
         console.log(err, "ошибка при входе")
       })
+      .finally(() => setIsLoading(true))
   }
-  const handleSignup = () => {
+  const handleSignup = (e: FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
     signup({ email, password, emailCode, firstName })
       .then(res => {
         console.log(res, "ответ при регистрации")
         router.push("/")
       })
       .catch(err => {
-        router.push("/signup")
+        if (err instanceof AxiosError) {
+          setMessage(String(err.response?.data.detail))
+        }
+        else {
+          setMessage("Произошла непредвиденная ошибка, попробуйте вернуться на страницу входа")
+        }
         console.log(err, "ошибка при регистрации")
       })
+      .finally(() => setIsLoading(false))
   }
 
   return (
     <div className={s.wrapper}>
       <form className={s.form} onSubmit={isLoginVerification ? handleLogin : handleSignup}>
+        {isLoading && <Loader className={s.loader} />}
         <h1>Верификация</h1>
         <p>
           Пожалуйста, введите 6-значный проверочный код,
@@ -60,6 +82,11 @@ const Verify = () => {
           value={emailCode}
           onChange={e => setEmailCode(e.target.value)}
         />
+        <p className={
+          message.length > 0
+            ? cx(s.msg, s.visible)
+            : cx(s.msg, s.hidden)
+        }>{message}</p>
         <Button>
           {
             isLoginVerification

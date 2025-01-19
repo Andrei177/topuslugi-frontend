@@ -31,3 +31,19 @@ export const signup = async ({email, password, emailCode, firstName} : AuthSignu
     })
     return response
 }
+
+export const resetPassword = async (email: string) => {
+    const response = await $publicApi.post("/email/reset-password", {
+        email
+    })
+    return response
+}
+
+export const updatePassword = async (email: string, password: string, retryPassword: string, key: string) => {
+    const response = await $publicApi.post(`/auth/reset-password/${key}`, {
+        email,
+        password,
+        password_reset: retryPassword
+    })
+    return response
+}

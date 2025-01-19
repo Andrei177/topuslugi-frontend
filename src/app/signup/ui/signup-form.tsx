@@ -8,7 +8,7 @@ import Input from "@/shared/ui/input/input";
 import Button from "@/shared/ui/button/button";
 import s from "./signup-form.module.css"
 import Link from "next/link";
-import { validatePassword } from "../../../shared/utils/validatePassword";
+import { validateForm } from "../../../shared/utils/validateForm";
 import cx from "classnames"
 import { AxiosError } from "axios";
 import Loader from "@/shared/ui/loader/loader";
@@ -19,13 +19,15 @@ const SignupForm = () => {
 
     const { email, password, firstName, setEmail, setPassword, setFirstName, setIsLoginVerification } = useAuthStore();
     const [isApproved, setIsApproved] = useState<boolean>(false);
+    const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
     const [message, setMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (password.length > 0) {
-            const result = validatePassword(password)
+        if (password.length > 0 || email.length > 0 || firstName.length > 0) {
+            const result = validateForm(password, firstName, email)
+            setIsValidForm(result.isValid);
             if (!result.isValid && result.message) {
                 setMessage(result.message)
             }
@@ -39,7 +41,7 @@ const SignupForm = () => {
         else {
             setMessage("")
         }
-    }, [password, isApproved])
+    }, [email, firstName, password, isApproved])
 
     const handleVerifyEmail = (e: FormEvent) => {
         e.preventDefault();
@@ -52,7 +54,7 @@ const SignupForm = () => {
             })
             .catch(err => {
                 if(err instanceof AxiosError){
-                    setMessage(err.response?.data.detail)
+                    setMessage(String(err.response?.data.detail))
                 }
                 else{
                     setMessage("Произошла непредвиденная ошибка, попробуйте обновить странцу")
@@ -116,7 +118,7 @@ const SignupForm = () => {
             </div>
             <p className={message.length > 0 ? cx(s.msg, s.visible) : cx(s.msg, s.hidden)}>{message}</p>
             <Button 
-                disabled={!isApproved || !/[A-Z]/.test(password) || !/\d/.test(password) || password.length < 8 || firstName.length === 0 || email.length === 0} 
+                disabled={!isApproved || !isValidForm} 
                 className={s.btn}
             >
                 Зарегистрироваться
