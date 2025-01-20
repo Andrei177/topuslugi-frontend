@@ -1,7 +1,7 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from "react"
-import { useAuthStore } from "@/shared/stores/auth-store"
+import { useFormStore } from "@/shared/stores/form-store"
 import { verifyEmail } from "@/api/auth-api/auth"
 import { useRouter } from "next/navigation"
 import Input from "@/shared/ui/input/input"
@@ -18,7 +18,7 @@ const LoginForm = () => {
 
     const router = useRouter();
 
-    const { email, password, setEmail, setPassword, setIsLoginVerification } = useAuthStore();
+    const { email, password, setEmail, setPassword, setIsLoginVerification } = useFormStore();
     const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
     const [message, setMessage] = useState<string>("");

@@ -1,0 +1,31 @@
+.wrapper{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auth{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.auth a{
+    padding-left: 3px;
+}
+@media (max-width: 1000px) {
+    .auth{
+        width: 45%;
+    }
+}
+@media (max-width: 750px) {
+    .auth{
+        width: 60%;
+    }
+}
+@media (max-width: 450px) {
+    .auth{
+        width: 75%;
+    }
+}

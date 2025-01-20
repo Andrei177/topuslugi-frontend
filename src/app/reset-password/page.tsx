@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuthStore } from "@/shared/stores/auth-store"
+import { useFormStore } from "@/shared/stores/form-store"
 import Input from "@/shared/ui/input/input"
 import s from "./ui/page.module.css"
 import Button from "@/shared/ui/button/button"
@@ -11,7 +11,7 @@ import cx from "classnames"
 import Loader from "@/shared/ui/loader/loader"
 
 const RecoveryPasswordPage = () => {
-    const { email, setEmail } = useAuthStore()
+    const { email, setEmail } = useFormStore()
     const [message, setMessage] = useState<string>("")
     const [success, setSuccess] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false)

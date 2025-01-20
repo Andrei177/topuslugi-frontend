@@ -1,7 +1,7 @@
 "use client"
 
 import { login, signup } from '@/api/auth-api/auth';
-import { useAuthStore } from '@/shared/stores/auth-store'
+import { useFormStore } from '@/shared/stores/form-store'
 import Button from '@/shared/ui/button/button';
 import Input from '@/shared/ui/input/input';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,7 @@ import { AxiosError } from 'axios';
 const Verify = () => {
   const router = useRouter();
 
-  const { isLoginVerification, email, password, firstName } = useAuthStore();
+  const { isLoginVerification, email, password, firstName } = useFormStore();
   const [emailCode, setEmailCode] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");

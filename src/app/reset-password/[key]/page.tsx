@@ -3,7 +3,7 @@
 import Input from "@/shared/ui/input/input"
 import s from "./page.module.css"
 import Button from "@/shared/ui/button/button"
-import { useAuthStore } from "@/shared/stores/auth-store"
+import { useFormStore } from "@/shared/stores/form-store"
 import { FormEvent, useState } from "react"
 import Loader from "@/shared/ui/loader/loader"
 import cx from "classnames"
@@ -14,7 +14,7 @@ import Password from "@/shared/ui/password/password"
 
 const SetNewPasswordPage = () => {
 
-    const { email, setEmail, password, setPassword } = useAuthStore();
+    const { email, setEmail, password, setPassword } = useFormStore();
     const [retryPassword, setRetryPassword] = useState<string>("");
     const [success, setSuccess] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const SetNewPasswordPage = () => {
         e.preventDefault();
         setIsLoading(true);
         console.log(params.key)
-        updatePassword(email, password, retryPassword, String(params.key))
+        updatePassword(password, retryPassword, String(params.key))
         .then(res => {
             console.log(res, "ответ при обновлении пароля")
             setSuccess(true)
@@ -34,9 +34,10 @@ const SetNewPasswordPage = () => {
         .catch(err => {
             if(err instanceof AxiosError && err.response?.data.detail){
                 setMessage(err.response?.data.detail)
+            }else{
+                setMessage("Произошла ошибка, попробуйте обновить страницу")
             }
             console.log(err, "ошибка при обновлении пароля")
-            setMessage("Произошла ошибка, попробуйте обновить страницу")
             setSuccess(false)
         })
         .finally(() => setIsLoading(false))
@@ -47,14 +48,14 @@ const SetNewPasswordPage = () => {
             <form className={s.form} onSubmit={handleSetNewPass}>
                 {isLoading && <Loader className={s.loader} />}
                 <h1>Придумайте новый пароль</h1>
-                <label htmlFor="email">Email</label>
+                {/* <label htmlFor="email">Email</label>
                 <Input
                     type="email"
                     placeholder='Введите свой email'
                     id="verifyCode"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                />
+                /> */}
                 <Password
                     placeholder="Введите пароль"
                     name="password"

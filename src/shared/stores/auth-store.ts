@@ -1,25 +1,15 @@
 import { create } from "zustand";
 
 type TypeAuthStore = {
-    firstName: string
-    email: string
-    password: string
-    isLoginVerification: boolean | undefined
-    
-    setFirstName: (newName: string) => void
-    setEmail: (newEmail: string) => void
-    setPassword: (newPass: string) => void
-    setIsLoginVerification: (bool: boolean) => void
+    isAuth: boolean,
+    setIsAuth: (bool: boolean) => void,
+    hasRefreshed: boolean,
+    setHasRefreshed: (bool: boolean) => void,
 }
 
 export const useAuthStore = create<TypeAuthStore>(set => ({
-    firstName: "",
-    email: "",
-    password: "",
-    isLoginVerification: undefined,
-
-    setFirstName: (newName) => set({firstName: newName}),
-    setEmail: (newEmail) => set({email: newEmail}),
-    setPassword: (newPass) => set({password: newPass}),
-    setIsLoginVerification: (bool) => set({isLoginVerification: bool})
+    isAuth: false,
+    setIsAuth: (bool: boolean) => set({isAuth: bool}),
+    hasRefreshed: false,
+    setHasRefreshed: (bool: boolean) => set({hasRefreshed: bool}),
 }))
