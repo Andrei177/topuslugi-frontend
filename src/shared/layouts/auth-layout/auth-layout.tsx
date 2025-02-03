@@ -3,13 +3,13 @@
 import { refreshTokens } from "@/api/auth-api/auth"
 import { useAuthStore } from "@/shared/stores/auth-store"
 import Loader from "@/shared/ui/loader/loader"
-//import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { PropsWithChildren, useEffect, useState } from "react"
 import s from "./auth-layout.module.css"
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
 
-  //const router = useRouter()
+  const router = useRouter()
   const { hasRefreshed, setHasRefreshed, setIsAuth } = useAuthStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -24,11 +24,12 @@ const AuthLayout = ({ children }: PropsWithChildren) => {
           console.log(res, "ответ при рефреше токенов")
           setIsAuth(true)
           localStorage.setItem("token", res.headers.authorization)
+          router.push(Routes.ROOT)
         })
         .catch(err => {
           console.log(err, "ошибка при рефреше токенов")
           setIsAuth(false)
-
+          router.push(Routes.AUTH)
         })
         .finally(() => setIsLoading(false))
     }
@@ -37,10 +38,9 @@ const AuthLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
       {
-        <>
-          {children}
-          {isLoading && <Loader className={s.loader} />}
-        </>
+        isLoading
+          ? <div className={s.loader_wrapper}><Loader /></div>
+          : children
       }
     </>
   )
