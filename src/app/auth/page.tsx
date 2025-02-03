@@ -4,7 +4,7 @@ import AuthLayout from "@/shared/layouts/auth-layout/auth-layout"
 import type { Metadata } from 'next'
  
 export const metadata: Metadata = {
-  title: 'Авторизация Топуслуги',
+  title: 'Авторизация',
   description: 'Авторизация на Топуслугах предоставляет Вам много возможностей',
 }
 

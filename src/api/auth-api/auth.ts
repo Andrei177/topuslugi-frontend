@@ -19,7 +19,7 @@ export const verifyPhone = async ({phoneNumber} : AuthVerify) => {
 }
 
 export const auth = async ({phoneNumber, smsCode} : Auth) => {
-    const response = await $publicApi.post<AuthResponse>("/auth/login", 
+    const response = await $publicApi.post<AuthResponse>("/auth", 
         {
             phone_number: phoneNumber,
             sms_code: smsCode

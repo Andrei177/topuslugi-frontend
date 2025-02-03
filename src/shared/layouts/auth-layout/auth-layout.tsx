@@ -6,6 +6,7 @@ import Loader from "@/shared/ui/loader/loader"
 import { useRouter } from "next/navigation"
 import { PropsWithChildren, useEffect, useState } from "react"
 import s from "./auth-layout.module.css"
+import { Routes } from "@/shared/routing/routes"
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
 

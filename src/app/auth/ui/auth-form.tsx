@@ -6,10 +6,11 @@ import { verifyPhone } from "@/api/auth-api/auth"
 import { useRouter } from "next/navigation"
 import Input from "@/shared/ui/input/input"
 import Button from "@/shared/ui/button/button"
-import s from "./login-form.module.css"
+import s from "./auth-form.module.css"
 import Loader from "@/shared/ui/loader/loader"
 import { AxiosError } from "axios"
 import cx from "classnames"
+import { Routes } from "@/shared/routing/routes"
 
 const AuthForm = () => {
 

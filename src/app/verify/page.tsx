@@ -10,6 +10,7 @@ import s from "./ui/page.module.css"
 import Loader from '@/shared/ui/loader/loader';
 import cx from "classnames"
 import { AxiosError } from 'axios';
+import { Routes } from '@/shared/routing/routes';
 
 const Verify = () => {
   const router = useRouter();
