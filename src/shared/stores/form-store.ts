@@ -2,24 +2,16 @@ import { create } from "zustand";
 
 type TypeFormStore = {
     firstName: string
-    email: string
-    password: string
-    isLoginVerification: boolean | undefined
+    phoneNumber: string
     
     setFirstName: (newName: string) => void
-    setEmail: (newEmail: string) => void
-    setPassword: (newPass: string) => void
-    setIsLoginVerification: (bool: boolean) => void
+    setPhoneNumber: (newPhone: string) => void
 }
 
 export const useFormStore = create<TypeFormStore>(set => ({
     firstName: "",
-    email: "",
-    password: "",
-    isLoginVerification: undefined,
+    phoneNumber: "",
 
     setFirstName: (newName) => set({firstName: newName}),
-    setEmail: (newEmail) => set({email: newEmail}),
-    setPassword: (newPass) => set({password: newPass}),
-    setIsLoginVerification: (bool) => set({isLoginVerification: bool})
+    setPhoneNumber: (newPhone) => set({phoneNumber: newPhone}),
 }))
