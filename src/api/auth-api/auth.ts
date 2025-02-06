@@ -12,14 +12,14 @@ export const refreshTokens = async () => {
 }
 
 export const verifyPhone = async ({phoneNumber} : AuthVerify) => {
-    const response = await $publicApi.post<AuthResponse>("/sms", {
+    const response = await $publicApi.post<AuthResponse>("/sms/", {
         phone_number: phoneNumber
     })
     return response
 }
 
 export const auth = async ({phoneNumber, smsCode} : Auth) => {
-    const response = await $publicApi.post<AuthResponse>("/auth", 
+    const response = await $publicApi.post<AuthResponse>("/auth/", 
         {
             phone_number: phoneNumber,
             sms_code: smsCode
